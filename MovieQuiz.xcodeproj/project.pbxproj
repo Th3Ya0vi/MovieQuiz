@@ -24,6 +24,7 @@
 		A87053C318CEC76F00ADCF81 /* QuizScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = A87053C218CEC76F00ADCF81 /* QuizScreen.m */; };
 		A89836A818D256F70023B5D9 /* correct.png in Resources */ = {isa = PBXBuildFile; fileRef = A89836A618D256F70023B5D9 /* correct.png */; };
 		A89836A918D256F70023B5D9 /* wrong.png in Resources */ = {isa = PBXBuildFile; fileRef = A89836A718D256F70023B5D9 /* wrong.png */; };
+		A89836AC18D292C10023B5D9 /* TimeUp.m in Sources */ = {isa = PBXBuildFile; fileRef = A89836AB18D292C10023B5D9 /* TimeUp.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +61,8 @@
 		A87053C218CEC76F00ADCF81 /* QuizScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QuizScreen.m; path = ../QuizScreen.m; sourceTree = "<group>"; };
 		A89836A618D256F70023B5D9 /* correct.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = correct.png; path = ../../../Desktop/correct.png; sourceTree = "<group>"; };
 		A89836A718D256F70023B5D9 /* wrong.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = wrong.png; path = ../../../Desktop/wrong.png; sourceTree = "<group>"; };
+		A89836AA18D292C10023B5D9 /* TimeUp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeUp.h; sourceTree = "<group>"; };
+		A89836AB18D292C10023B5D9 /* TimeUp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimeUp.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,6 +129,8 @@
 				A87053A218CEBBB100ADCF81 /* ViewController.m */,
 				A87053C118CEC76F00ADCF81 /* QuizScreen.h */,
 				A87053C218CEC76F00ADCF81 /* QuizScreen.m */,
+				A89836AA18D292C10023B5D9 /* TimeUp.h */,
+				A89836AB18D292C10023B5D9 /* TimeUp.m */,
 				A87053A418CEBBB100ADCF81 /* Images.xcassets */,
 				A870539318CEBBB100ADCF81 /* Supporting Files */,
 			);
@@ -264,6 +269,7 @@
 			files = (
 				A87053C318CEC76F00ADCF81 /* QuizScreen.m in Sources */,
 				A87053A318CEBBB100ADCF81 /* ViewController.m in Sources */,
+				A89836AC18D292C10023B5D9 /* TimeUp.m in Sources */,
 				A870539D18CEBBB100ADCF81 /* AppDelegate.m in Sources */,
 				A870539918CEBBB100ADCF81 /* main.m in Sources */,
 			);
