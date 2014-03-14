@@ -7,6 +7,7 @@
 //
 
 #import "QuizScreen.h"
+#import "ViewController.h"
 
 @interface QuizScreen ()
 
@@ -18,10 +19,11 @@
 {
     dblElapsedSeconds -= 1;
     //double seconds = [[NSDate date] timeIntervalSinceDate:self.startTime];
-    if(dblElapsedSeconds == 0)
+    if(dblElapsedSeconds < 1)
     {
+        ViewController *viewController = [[ViewController alloc] init];
         //logic for exiting to gameover screen
-        
+        [self presentViewController:viewController animated:YES completion:NULL];
     }
     int hours,minutes, lseconds;
     hours = dblElapsedSeconds / 3600;
@@ -97,7 +99,7 @@
     Result.hidden = YES;
     
     Score.text = [NSString stringWithFormat:@"%i", ScoreNumber];
-    dblElapsedSeconds=180; //Declare this in header
+    dblElapsedSeconds=10; //Declare this in header
     tmrElapsedTime = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(updateElapsedTime) userInfo:nil repeats:YES]; //Declare timer variable in header
     
     Answer1Correct = NO;
