@@ -25,6 +25,7 @@
 		A89836A818D256F70023B5D9 /* correct.png in Resources */ = {isa = PBXBuildFile; fileRef = A89836A618D256F70023B5D9 /* correct.png */; };
 		A89836A918D256F70023B5D9 /* wrong.png in Resources */ = {isa = PBXBuildFile; fileRef = A89836A718D256F70023B5D9 /* wrong.png */; };
 		A89836AC18D292C10023B5D9 /* TimeUp.m in Sources */ = {isa = PBXBuildFile; fileRef = A89836AB18D292C10023B5D9 /* TimeUp.m */; };
+		A89836AF18D444570023B5D9 /* Statistics.m in Sources */ = {isa = PBXBuildFile; fileRef = A89836AE18D444570023B5D9 /* Statistics.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +64,8 @@
 		A89836A718D256F70023B5D9 /* wrong.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = wrong.png; path = ../../../Desktop/wrong.png; sourceTree = "<group>"; };
 		A89836AA18D292C10023B5D9 /* TimeUp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeUp.h; sourceTree = "<group>"; };
 		A89836AB18D292C10023B5D9 /* TimeUp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimeUp.m; sourceTree = "<group>"; };
+		A89836AD18D444570023B5D9 /* Statistics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Statistics.h; sourceTree = "<group>"; };
+		A89836AE18D444570023B5D9 /* Statistics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Statistics.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,6 +134,8 @@
 				A87053C218CEC76F00ADCF81 /* QuizScreen.m */,
 				A89836AA18D292C10023B5D9 /* TimeUp.h */,
 				A89836AB18D292C10023B5D9 /* TimeUp.m */,
+				A89836AD18D444570023B5D9 /* Statistics.h */,
+				A89836AE18D444570023B5D9 /* Statistics.m */,
 				A87053A418CEBBB100ADCF81 /* Images.xcassets */,
 				A870539318CEBBB100ADCF81 /* Supporting Files */,
 			);
@@ -271,6 +276,7 @@
 				A87053A318CEBBB100ADCF81 /* ViewController.m in Sources */,
 				A89836AC18D292C10023B5D9 /* TimeUp.m in Sources */,
 				A870539D18CEBBB100ADCF81 /* AppDelegate.m in Sources */,
+				A89836AF18D444570023B5D9 /* Statistics.m in Sources */,
 				A870539918CEBBB100ADCF81 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

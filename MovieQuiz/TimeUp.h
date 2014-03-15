@@ -9,8 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @interface TimeUp : UIViewController
-
+{
     IBOutlet UIButton *Statistic;
+    IBOutlet UIButton *Exit;
 
-
+}
 @end
