@@ -60,12 +60,17 @@
 		A87053B718CEBBB100ADCF81 /* MovieQuizTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MovieQuizTests.m; sourceTree = "<group>"; };
 		A87053C118CEC76F00ADCF81 /* QuizScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QuizScreen.h; path = ../QuizScreen.h; sourceTree = "<group>"; };
 		A87053C218CEC76F00ADCF81 /* QuizScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QuizScreen.m; path = ../QuizScreen.m; sourceTree = "<group>"; };
+<<<<<<< HEAD
 		A89836A618D256F70023B5D9 /* correct.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = correct.png; path = ../../../Desktop/correct.png; sourceTree = "<group>"; };
 		A89836A718D256F70023B5D9 /* wrong.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = wrong.png; path = ../../../Desktop/wrong.png; sourceTree = "<group>"; };
 		A89836AA18D292C10023B5D9 /* TimeUp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeUp.h; sourceTree = "<group>"; };
 		A89836AB18D292C10023B5D9 /* TimeUp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimeUp.m; sourceTree = "<group>"; };
 		A89836AD18D444570023B5D9 /* Statistics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Statistics.h; sourceTree = "<group>"; };
 		A89836AE18D444570023B5D9 /* Statistics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Statistics.m; sourceTree = "<group>"; };
+=======
+		A89836A618D256F70023B5D9 /* correct.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = correct.png; sourceTree = "<group>"; };
+		A89836A718D256F70023B5D9 /* wrong.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wrong.png; sourceTree = "<group>"; };
+>>>>>>> 13d45076a1da7d3f44406032e859a3d09ddc3b8f
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -217,7 +222,7 @@
 		A870538118CEBBB100ADCF81 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0500;
+				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "Tony Baik";
 				TargetAttributes = {
 					A87053A918CEBBB100ADCF81 = {
@@ -331,7 +336,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -370,7 +374,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -428,7 +431,6 @@
 		A87053BF18CEBBB100ADCF81 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/MovieQuiz.app/MovieQuiz";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
@@ -451,7 +453,6 @@
 		A87053C018CEBBB100ADCF81 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/MovieQuiz.app/MovieQuiz";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
