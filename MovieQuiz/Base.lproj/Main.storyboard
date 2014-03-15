@@ -171,12 +171,12 @@
         <!--Time Up-->
         <scene sceneID="aNc-ww-Gvd">
             <objects>
-                <viewController id="da7-b9-pq0" customClass="TimeUp" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TimeUp" useStoryboardIdentifierAsRestorationIdentifier="YES" id="da7-b9-pq0" customClass="TimeUp" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="hn7-Wq-jSi"/>
                         <viewControllerLayoutGuide type="bottom" id="Cy7-ug-wnV"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="lPw-h9-zru" customClass="TimeUp">
+                    <view key="view" contentMode="scaleToFill" restorationIdentifier="TimeUp" id="lPw-h9-zru">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>

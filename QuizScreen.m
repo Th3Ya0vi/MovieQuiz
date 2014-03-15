@@ -7,7 +7,7 @@
 //
 
 #import "QuizScreen.h"
-#import "ViewController.h"
+#import "TimeUp.h"
 
 @interface QuizScreen ()
 
@@ -21,9 +21,12 @@
     //double seconds = [[NSDate date] timeIntervalSinceDate:self.startTime];
     if(dblElapsedSeconds < 1)
     {
-        ViewController *viewController = [[ViewController alloc] init];
+        //Time is up / reset
+        GameInProgress = NO;
+        tmrElapsedTime.invalidate;
+        TimeUp *timeUp = [[UIStoryboard storyboardWithName:@"Main" bundle:NULL] instantiateViewControllerWithIdentifier:@"TimeUp"];
         //logic for exiting to gameover screen
-        [self presentViewController:viewController animated:YES completion:NULL];
+        [self presentViewController:timeUp animated:YES completion:NULL];
     }
     int hours,minutes, lseconds;
     hours = dblElapsedSeconds / 3600;
@@ -93,13 +96,13 @@
     if(GameInProgress == NO)
     {
         ScoreNumber = 0;
+        dblElapsedSeconds=10; //Declare this in header
         GameInProgress = YES;
     }
     
     Result.hidden = YES;
-    
     Score.text = [NSString stringWithFormat:@"%i", ScoreNumber];
-    dblElapsedSeconds=10; //Declare this in header
+
     tmrElapsedTime = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(updateElapsedTime) userInfo:nil repeats:YES]; //Declare timer variable in header
     
     Answer1Correct = NO;
@@ -184,6 +187,14 @@
 
 - (void)loadViewAgain
 {
+    if(GameInProgress == NO)
+    {
+        ScoreNumber = 0;
+        dblElapsedSeconds=10; //Declare this in header
+        GameInProgress = YES;
+        
+    }
+    
     Score.text = [NSString stringWithFormat:@"%i", ScoreNumber];
     
     Answer1Correct = NO;

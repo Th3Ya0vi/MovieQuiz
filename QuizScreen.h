@@ -15,8 +15,8 @@ BOOL Answer3Correct;
 BOOL Answer4Correct;
 int ScoreNumber;
 int WrongNumber;
-int dblElapsedSeconds = 180;
-int tmrElapsedTime;
+int dblElapsedSeconds;
+NSTimer *tmrElapsedTime;
 BOOL GameInProgress;
 
 @interface QuizScreen : UIViewController
