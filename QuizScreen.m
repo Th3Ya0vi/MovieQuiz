@@ -8,6 +8,8 @@
 
 #import "QuizScreen.h"
 #import "TimeUp.h"
+#import "MovieDBObjects.h"
+#import "DBEngine.h"
 
 @interface QuizScreen ()
 
@@ -40,7 +42,6 @@
             const NSInteger NewQuizNum = [preferences integerForKey:QuizKey] + 1;
             [preferences setInteger:NewQuizNum forKey:QuizKey];
         }
-
         
         TimeUp *timeUp = [[UIStoryboard storyboardWithName:@"Main" bundle:NULL] instantiateViewControllerWithIdentifier:@"TimeUp"];
         //logic for exiting to gameover screen
@@ -60,12 +61,14 @@
     Result.image = [UIImage imageNamed:@"correct.png"];
     [self loadViewAgain];
 }
+
 -(void)WrongAnswer{
     WrongNumber++;
     Result.hidden = NO;
     Result.image = [UIImage imageNamed:@"wrong.png"];
     [self loadViewAgain];
 }
+
 -(IBAction)Answer1:(id)sender{
     if(Answer1Correct == YES){
         [self RightAnswer];
@@ -82,6 +85,7 @@
         [self WrongAnswer];
     }
 }
+
 -(IBAction)Answer3:(id)sender{
     if(Answer1Correct == YES){
         [self RightAnswer];
@@ -90,6 +94,7 @@
         [self WrongAnswer];
     }
 }
+
 -(IBAction)Answer4:(id)sender{
     if(Answer1Correct == YES){
         [self RightAnswer];
@@ -98,15 +103,16 @@
         [self WrongAnswer];
     }
 }
+
 -(int)ScoreNumber;
 {
     return ScoreNumber;
 }
+
 -(int)WrongNumber
 {
     return WrongNumber;
 }
-
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -117,8 +123,27 @@
     return self;
 }
 
+-(void)dbTestSuite
+{
+    DBEngine *db = [DBEngine database];
+    NSString *title = [db directorToMovie:@"StanleyKubrick"]; // Eyes Wide Shut
+    NSString *year = [db titleToYear:@"Star Wars: Episode III - Revenge of theSith"]; // 2005
+    NSLog(@"TITLE TEST: %@\
+          \nYEAR TEST: %@", title, year);
+    
+    // Here we run our db script as a test!
+    NSArray *movies = [DBEngine database].movieDBObjects;
+    for (MovieDBObjects *movie in movies) {
+        //NSLog(@"%d: %@ %d %@ %@ %@", movie.uniqueId, movie.title, movie.year,\
+        //      movie.director, movie.banner_url, movie.trailer_url);
+    }
+    
+}
+
 - (void)viewDidLoad
 {
+    [self dbTestSuite];
+    
     if(GameInProgress == NO)
     {
         ScoreNumber = 0;

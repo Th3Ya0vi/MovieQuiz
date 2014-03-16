@@ -15,6 +15,8 @@
 
 + (DBEngine*)database;
 - (NSArray *)movieDBObjects;
+- (NSString *)directorToMovie:(NSString *)director;
+- (NSString *)titleToYear:(NSString *)title;
 
 @end
 
