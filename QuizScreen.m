@@ -128,6 +128,7 @@
     DBEngine *db = [DBEngine database];
     NSString *title = [db directorToMovie:@"StanleyKubrick"]; // Eyes Wide Shut
     NSString *year = [db titleToYear:@"Star Wars: Episode III - Revenge of theSith"]; // 2005
+    NSString *sharedMovieStars = [db ]
     NSLog(@"TITLE TEST: %@\
           \nYEAR TEST: %@", title, year);
     
