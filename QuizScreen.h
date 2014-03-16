@@ -26,7 +26,6 @@ BOOL GameInProgress;
     IBOutlet UIButton *Answer2;
     IBOutlet UIButton *Answer3;
     IBOutlet UIButton *Answer4;
-    IBOutlet UIButton *Exit;
     IBOutlet UILabel *Score;
     IBOutlet UILabel *TimeLeft;
     IBOutlet UIImageView *Result;
@@ -39,5 +38,8 @@ BOOL GameInProgress;
 -(IBAction)Answer2:(id)sender;
 -(IBAction)Answer3:(id)sender;
 -(IBAction)Answer4:(id)sender;
+-(int)ScoreNumber;
+-(int)WrongNumber;
+
 
 @end

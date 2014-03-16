@@ -18,11 +18,12 @@
 -(void)updateElapsedTime
 {
     dblElapsedSeconds -= 1;
-    //double seconds = [[NSDate date] timeIntervalSinceDate:self.startTime];
+    //Time is up.
     if(dblElapsedSeconds < 1)
     {
         //Time is up / reset
         GameInProgress = NO;
+        //free up elapsed time / reset it
         tmrElapsedTime.invalidate;
         TimeUp *timeUp = [[UIStoryboard storyboardWithName:@"Main" bundle:NULL] instantiateViewControllerWithIdentifier:@"TimeUp"];
         //logic for exiting to gameover screen
@@ -80,6 +81,14 @@
         [self WrongAnswer];
     }
 }
+-(int)ScoreNumber;
+{
+    return ScoreNumber;
+}
+-(int)WrongNumber
+{
+    return WrongNumber;
+}
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -101,6 +110,7 @@
     }
     
     Result.hidden = YES;
+    
     Score.text = [NSString stringWithFormat:@"%i", ScoreNumber];
 
     tmrElapsedTime = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(updateElapsedTime) userInfo:nil repeats:YES]; //Declare timer variable in header
