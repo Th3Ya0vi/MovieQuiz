@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A008DFB018D5582100FC119D /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A008DFAF18D5582100FC119D /* libsqlite3.dylib */; };
+		A008DFB218D595FB00FC119D /* moviedb.sqlite3 in Resources */ = {isa = PBXBuildFile; fileRef = A008DFB118D595FB00FC119D /* moviedb.sqlite3 */; };
+		A008DFB518D5975000FC119D /* MovieDBObjects.m in Sources */ = {isa = PBXBuildFile; fileRef = A008DFB418D5975000FC119D /* MovieDBObjects.m */; };
+		A008DFB818D59A9400FC119D /* DBEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = A008DFB718D59A9400FC119D /* DBEngine.m */; };
 		A870538D18CEBBB100ADCF81 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A870538C18CEBBB100ADCF81 /* Foundation.framework */; };
 		A870538F18CEBBB100ADCF81 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A870538E18CEBBB100ADCF81 /* CoreGraphics.framework */; };
 		A870539118CEBBB100ADCF81 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A870539018CEBBB100ADCF81 /* UIKit.framework */; };
@@ -39,6 +43,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A008DFAF18D5582100FC119D /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		A008DFB118D595FB00FC119D /* moviedb.sqlite3 */ = {isa = PBXFileReference; lastKnownFileType = file; path = moviedb.sqlite3; sourceTree = "<group>"; };
+		A008DFB318D5975000FC119D /* MovieDBObjects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MovieDBObjects.h; sourceTree = "<group>"; };
+		A008DFB418D5975000FC119D /* MovieDBObjects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MovieDBObjects.m; sourceTree = "<group>"; };
+		A008DFB618D59A9400FC119D /* DBEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBEngine.h; sourceTree = "<group>"; };
+		A008DFB718D59A9400FC119D /* DBEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBEngine.m; sourceTree = "<group>"; };
 		A870538918CEBBB100ADCF81 /* MovieQuiz.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MovieQuiz.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A870538C18CEBBB100ADCF81 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		A870538E18CEBBB100ADCF81 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -73,6 +83,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A008DFB018D5582100FC119D /* libsqlite3.dylib in Frameworks */,
 				A870538F18CEBBB100ADCF81 /* CoreGraphics.framework in Frameworks */,
 				A870539118CEBBB100ADCF81 /* UIKit.framework in Frameworks */,
 				A870538D18CEBBB100ADCF81 /* Foundation.framework in Frameworks */,
@@ -114,6 +125,7 @@
 		A870538B18CEBBB100ADCF81 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A008DFAF18D5582100FC119D /* libsqlite3.dylib */,
 				A870538C18CEBBB100ADCF81 /* Foundation.framework */,
 				A870538E18CEBBB100ADCF81 /* CoreGraphics.framework */,
 				A870539018CEBBB100ADCF81 /* UIKit.framework */,
@@ -136,6 +148,10 @@
 				A89836AB18D292C10023B5D9 /* TimeUp.m */,
 				A8C413EC18D5384300B5510F /* Statistics.h */,
 				A89836AE18D444570023B5D9 /* Statistics.m */,
+				A008DFB318D5975000FC119D /* MovieDBObjects.h */,
+				A008DFB418D5975000FC119D /* MovieDBObjects.m */,
+				A008DFB618D59A9400FC119D /* DBEngine.h */,
+				A008DFB718D59A9400FC119D /* DBEngine.m */,
 				A87053A418CEBBB100ADCF81 /* Images.xcassets */,
 				A870539318CEBBB100ADCF81 /* Supporting Files */,
 			);
@@ -145,6 +161,7 @@
 		A870539318CEBBB100ADCF81 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				A008DFB118D595FB00FC119D /* moviedb.sqlite3 */,
 				A89836A618D256F70023B5D9 /* correct.png */,
 				A89836A718D256F70023B5D9 /* wrong.png */,
 				A870539418CEBBB100ADCF81 /* MovieQuiz-Info.plist */,
@@ -253,6 +270,7 @@
 				A89836A818D256F70023B5D9 /* correct.png in Resources */,
 				A87053A518CEBBB100ADCF81 /* Images.xcassets in Resources */,
 				A870539718CEBBB100ADCF81 /* InfoPlist.strings in Resources */,
+				A008DFB218D595FB00FC119D /* moviedb.sqlite3 in Resources */,
 				A87053A018CEBBB100ADCF81 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -273,10 +291,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				A87053C318CEC76F00ADCF81 /* QuizScreen.m in Sources */,
+				A008DFB818D59A9400FC119D /* DBEngine.m in Sources */,
 				A87053A318CEBBB100ADCF81 /* ViewController.m in Sources */,
 				A89836AC18D292C10023B5D9 /* TimeUp.m in Sources */,
 				A870539D18CEBBB100ADCF81 /* AppDelegate.m in Sources */,
 				A89836AF18D444570023B5D9 /* Statistics.m in Sources */,
+				A008DFB518D5975000FC119D /* MovieDBObjects.m in Sources */,
 				A870539918CEBBB100ADCF81 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
