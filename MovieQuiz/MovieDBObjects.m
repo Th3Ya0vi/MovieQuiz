@@ -18,7 +18,6 @@
 @synthesize banner_url = _banner_url;
 @synthesize trailer_url = _trailer_url;
 
-
 - (id)initWithUniqueId:(int)uniqueId title:(NSString *)title year:(int)year
               director:(NSString *)director banner_url:(NSString *)banner_url
            trailer_url:(NSString *)trailer_url {
@@ -29,18 +28,15 @@
         self.director = director;
         self.banner_url = banner_url;
         self.trailer_url = trailer_url;
-
     }
     return self;
 }
 
 - (void) dealloc {
     self.title = nil;
-    // self.year = nil;
     self.director = nil;
     self.banner_url = nil;
     self.trailer_url = nil;
-    // [super dealloc]; TODO WTF?
 }
 
 @end
