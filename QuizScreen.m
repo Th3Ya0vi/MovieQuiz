@@ -25,6 +25,23 @@
         GameInProgress = NO;
         //free up elapsed time / reset it
         tmrElapsedTime.invalidate;
+        
+        //+1 for # of quizzes taken
+        NSUserDefaults* preferences = [NSUserDefaults standardUserDefaults];
+        NSString* QuizKey = @"quizNumber";
+        
+        if([preferences objectForKey:QuizKey] == nil)
+        {
+            //do nothing. doesnt exist already.
+            [preferences setInteger:1 forKey:QuizKey];
+        }
+        else
+        {
+            const NSInteger NewQuizNum = [preferences integerForKey:QuizKey] + 1;
+            [preferences setInteger:NewQuizNum forKey:QuizKey];
+        }
+
+        
         TimeUp *timeUp = [[UIStoryboard storyboardWithName:@"Main" bundle:NULL] instantiateViewControllerWithIdentifier:@"TimeUp"];
         //logic for exiting to gameover screen
         [self presentViewController:timeUp animated:YES completion:NULL];
