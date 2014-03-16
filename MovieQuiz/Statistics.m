@@ -40,6 +40,16 @@
         [preferences setInteger:0 forKey:WrongKey];
     }
     
+    NSString* QuizKey = @"quizNumber";
+    
+    if([preferences objectForKey:QuizKey] == nil)
+    {
+    }
+    else
+    {
+        [preferences setInteger:0 forKey:QuizKey];
+    }
+    
     const BOOL didSave = [preferences synchronize];
     
     if(!didSave)
@@ -49,6 +59,7 @@
     else{
         TotalCorrectLabel.text = [NSString stringWithFormat:@"%li", (long)[preferences integerForKey:CorrectKey]];
         TotalWrongLabel.text = [NSString stringWithFormat:@"%li", (long)[preferences integerForKey:WrongKey]];
+        QuizTakenLabel.text = [NSString stringWithFormat:@"%li", (long)[preferences integerForKey:QuizKey]];
     }
 
     
@@ -68,6 +79,7 @@
     QuizScreen *quizScreen = [[QuizScreen alloc] initWithNibName:@"QuizScreen" bundle:nil];
     CorrectLabel.text = [NSString stringWithFormat:@"%i", quizScreen.ScoreNumber];
     WrongLabel.text = [NSString stringWithFormat:@"%i", quizScreen.WrongNumber];
+    
     
     //for overall scores. use NSUserDefault
     NSUserDefaults* preferences = [NSUserDefaults standardUserDefaults];
@@ -139,8 +151,9 @@
             TotalWrongLabel.text = [NSString stringWithFormat:@"%li", (long)[preferences integerForKey:WrongKey]];
         }
     }
-
-    
+    NSString* QuizKey = @"quizNumber";
+    //This won't ever be null since it will be set beforehand.
+    QuizTakenLabel.text = [NSString stringWithFormat:@"%li", (long)[preferences integerForKey:QuizKey]];
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 }
