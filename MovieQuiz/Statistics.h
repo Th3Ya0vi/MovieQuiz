@@ -10,7 +10,17 @@
 
 @interface Statistics : UIViewController
 {
+    IBOutlet UILabel *CorrectLabel;
+    IBOutlet UILabel *WrongLabel;
+    IBOutlet UILabel *TotalCorrectLabel;
+    IBOutlet UILabel *TotalWrongLabel;
+    IBOutlet UILabel *QuizTakenLabel;
+    IBOutlet UILabel *TimeSpentLabel;
+    IBOutlet UIButton *Exit;
+    IBOutlet UIButton *ClearStats;
     
 }
+
+-(IBAction)ClearStats:(id)sender;
 
 @end
