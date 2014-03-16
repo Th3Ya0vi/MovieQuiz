@@ -126,13 +126,49 @@
 -(void)dbTestSuite
 {
     DBEngine *db = [DBEngine database];
-    NSString *title = [db directorToMovie:@"StanleyKubrick"]; // Eyes Wide Shut
-    NSString *year = [db titleToYear:@"Star Wars: Episode III - Revenge of theSith"]; // 2005
-    NSString *sharedMovieStars = [db ]
-    NSLog(@"TITLE TEST: %@\
-          \nYEAR TEST: %@", title, year);
+    // res1 should be Tim Burton
+    NSString *res1 = [db titleToDirector:@"Tim Burton" secondD:@"Taylor Hackford" thirdD:@"Tony Baik"
+                                 fourthD:@"Lucas Ou-Yang" title:@"Sleepy Hollow"];
     
-    // Here we run our db script as a test!
+    // res2 should be 2005
+    NSString *res2 = [db titleToYear:@"Star Wars: Episode III - Revenge of theSith"
+                              firstD:@"1700" secondD:@"2005" thirdD:@"2000" fourthD:@"1995"];
+    
+    // res3 should be Tony Baik
+    NSString *res3 = [db starNotInMovie:@"Russell Crowe" secondS:@"Jennifer Connelly"
+                                 thirdS:@"Ed Harris" fourthS:@"Tony Baik" movie:@"A Beautiful Mind"];
+    
+    // res4 should be All Over Me
+    NSString *res4 = [db sharedMovie:@"Tara Subkoff" secondStar:@"Samuel Jackson"];
+    
+    // res5 should be AlexSichel
+    NSString *res5 = [db directedTheStar:@"Tara Subkoff" d1:@"AlexSichel" d2:@"Tony Baik"
+                                      d3:@"George Lucas" d4:@"Robin Williams"];
+    
+    // res6 should be Nicole Kidman
+    NSString *res6 = [db starBothMovies:@"Moulin Rouge" movie2:@"The Others" star1:@"Kate Beckinsale"
+                                  star2:@"Nicole Kidman" star3:@"Hayden Christensen" star4:@"Leonardo DiCaprio"];
+    
+    // res7 should be Lucas Ou-Yang
+    NSString *res7 = [db notInSameMovie:@"Nicole Kidman" s1:@"Tom Cruise" s2:@"Renee Zellweger"
+                                     s3:@"Christopher Walken" s4:@"Lucas Ou-Yang"];
+    
+    // res8 should be AlexSichel
+    NSString *res8 = [db directorOfStar:@"Steven Spielberg" d2:@"Ron Howard" d3:@"Bill Forsyth"
+                                     d4:@"Bill Forsyth" star:@"Samuel Jackson" year:@"1997"];
+    
+    NSLog(@"\
+          \n=====START OF TEST SEQUENCE=====\
+          \ntitleToDirector TEST: %@\
+          \ntitleToYear TEST: %@\
+          \nstarNotInMovie TEST: %@\
+          \nsharedMovie TEST: %@\
+          \ndirectedTheStar TEST: %@\
+          \nstarBothMovies TEST: %@\
+          \nnotInSameMovie TEST: %@\
+          \ndirectorOfStar TEST: %@",
+          res1, res2, res3, res4, res5, res6, res7, res8);
+    
     NSArray *movies = [DBEngine database].movieDBObjects;
     for (MovieDBObjects *movie in movies) {
         //NSLog(@"%d: %@ %d %@ %@ %@", movie.uniqueId, movie.title, movie.year,\

@@ -48,7 +48,7 @@ static DBEngine *_database;
 */
 
 // Input 4 directors and a title, return winning director.
-- (NSString *)directorToMovie:(NSString *)d1 secondD:(NSString *)d2 thirdD:(NSString *)d3
+- (NSString *)titleToDirector:(NSString *)d1 secondD:(NSString *)d2 thirdD:(NSString *)d3
                       fourthD:(NSString *)d4 title:(NSString *)title {
     NSMutableArray *dirs = [[NSMutableArray alloc] init];
     NSString *query = [NSString stringWithFormat:@"SELECT director FROM movies WHERE title = '%@'", title];
@@ -146,7 +146,7 @@ static DBEngine *_database;
     NSString *query = [NSString stringWithFormat:@"SELECT DISTINCT movies.title FROM movies\
                 JOIN stars_in_movies JOIN stars JOIN stars AS stars2 JOIN movies AS movies2 JOIN stars_in_movies AS stars_in_movies2\
                 WHERE stars_in_movies.star_id = stars.id AND stars_in_movies.movie_id = movies.id\
-                AND stars.first_name = '%@' AND AND stars.last_name = '%@' stars2.first_name = '%@' AND stars2.last_name = '%@'\
+                AND stars.first_name = '%@' AND stars.last_name = '%@' AND stars2.first_name = '%@' AND stars2.last_name = '%@'\
                 AND stars_in_movies2.star_id = stars2.id AND stars_in_movies2.movie_id = movies2.id\
                 AND movies2.title = movies.title;", starOneFirstName, starOneLastName, starTwoFirstName, starTwoLastName];
     sqlite3_stmt *statement;
@@ -161,7 +161,7 @@ static DBEngine *_database;
     return retTitle;
 }
 
-// Given 4 directors and a star, who did direct that star.
+// Given 4 directors and a star, who directed that star?
 // Star is first + " " + last name as always.
 - (NSString *)directedTheStar:(NSString *)star d1:(NSString *)d1 d2:(NSString *)d2
                            d3:(NSString *)d3 d4:(NSString *)d4 {
@@ -180,7 +180,7 @@ static DBEngine *_database;
     if (sqlite3_prepare_v2(_database, [query UTF8String], -1, &statement, nil)
         == SQLITE_OK) {
         while (sqlite3_step(statement) == SQLITE_ROW) {
-            char *dirChars = (char *) sqlite3_column_text(statement, 1);
+            char *dirChars = (char *) sqlite3_column_text(statement, 0);
             NSString *dirName = [[NSString alloc] initWithUTF8String:dirChars];
             [dirs addObject:dirName];
         }
@@ -257,8 +257,85 @@ static DBEngine *_database;
 }
 
 // Given 4 stars and a star, find which one were not ever in the same movie
+- (NSString *)notInSameMovie:(NSString *)inStar s1:(NSString *)s1 s2:(NSString *)s2
+                          s3:(NSString *)s3 s4:(NSString *)s4 {
+    NSArray *sa = [inStar componentsSeparatedByString:@" "];
+    
+    NSString *fname = [sa objectAtIndex:0];
+    NSString *lname = [sa objectAtIndex:1];
+    
+    NSMutableArray *fellowStars = [[NSMutableArray alloc] init];
+    
+    NSString *query = [NSString stringWithFormat:@"select distinct stars.first_name, stars.last_name\
+                    from stars join movies join stars_in_movies\
+                    where stars.id = stars_in_movies.star_id and movies.id = stars_in_movies.movie_id and movies.title\
+                    in (select movies.title from stars join movies join stars_in_movies\
+                        where stars_in_movies.movie_id = movies.id and stars_in_movies.star_id = stars.id\
+                        and stars.first_name = '%@' and stars.last_name = '%@')", fname, lname];
+    sqlite3_stmt *statement;
+    if (sqlite3_prepare_v2(_database, [query UTF8String], -1, &statement, nil)
+        == SQLITE_OK) {
+        while (sqlite3_step(statement) == SQLITE_ROW) {
+            char *fnameChars = (char *) sqlite3_column_text(statement, 0);
+            char *lnameChars = (char *) sqlite3_column_text(statement, 1);
+            NSString *curFName = [[NSString alloc] initWithUTF8String:fnameChars];
+            NSString *curLName = [[NSString alloc] initWithUTF8String:lnameChars];
+            NSString *name = [NSString stringWithFormat:@"%@ %@", curFName, curLName];
+            [fellowStars addObject:name];
+        }
+    }
+    bool is1 = ![fellowStars containsObject:s1];
+    if (is1) {
+        return s1;
+    }
+    bool is2 = ![fellowStars containsObject:s2];
+    if (is2) {
+        return s2;
+    }
+    bool is3 = ![fellowStars containsObject:s3];
+    if (is3) {
+        return s3;
+    }
+    return s4;
+    // bool is4 = [fellowStars containsObject:s2];
+}
 
 // Given 4 directors and a star and a year (get the list of movies), who directed him.
+- (NSString *)directorOfStar:(NSString *)d1 d2:(NSString *)d2 d3:(NSString *)d3
+                       d4:(NSString *)d4 star:(NSString *)star year:(NSString *)year {
+    
+    NSArray *aS = [star componentsSeparatedByString:@" "];
+    NSString *fname = [aS objectAtIndex:0];
+    NSString *lname = [aS objectAtIndex:1];
+    NSString *director = nil;
+    
+    NSString *query = [NSString stringWithFormat:@"select distinct movies.director from stars join movies join stars_in_movies\
+                       where movies.id = stars_in_movies.movie_id and stars.id = stars_in_movies.star_id\
+                       and stars.first_name = '%@' and stars.last_name = '%@' and movies.year = %@;", fname, lname, year];
+    
+    sqlite3_stmt *statement;
+    if (sqlite3_prepare_v2(_database, [query UTF8String], -1, &statement, nil)
+        == SQLITE_OK) {
+        while (sqlite3_step(statement) == SQLITE_ROW) {
+            char *directorChar = (char *) sqlite3_column_text(statement, 0);
+            director = [[NSString alloc] initWithUTF8String:directorChar];
+            break;
+        }
+    }
+    bool is1 = [director isEqualToString:d1];
+    if (is1) {
+        return d1;
+    }
+    bool is2 = [director isEqualToString:d2];
+    if (is2) {
+        return d2;
+    }
+    bool is3 = [director isEqualToString:d3];
+    if (is3) {
+        return d3;
+    }
+    return d4;
+}
 
 - (NSArray *)movieDBObjects {
     NSMutableArray *retval = [[NSMutableArray alloc] init];
