@@ -40,7 +40,11 @@
 - (NSString *)answerSix:(NSString *)m1Title movie2:(NSString *)m2Title;
 - (NSString *)answerSeven:(NSString *)inStar;
 - (NSString *)answerEight:(NSString *)star year:(NSString *)year;
+
 - (NSMutableArray *)getLinkedStarAndMovie;
+- (NSMutableArray *)twoMoviesSameYear;
+- (NSMutableArray *)twoMoviesWithOneStar:(NSString *)starName;
+- (NSString *)starMoreThanOneMovie;
 
 @end
 

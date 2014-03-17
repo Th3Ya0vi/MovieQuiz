@@ -207,7 +207,7 @@
     Answer3Correct = NO;
     Answer4Correct = NO;
     
-    int selection = 7;//arc4random() % 8;
+    int selection = 5;//arc4random() % 8;
     
     if (selection == 0) {
         NSMutableArray *randomTitleArr = [db randomElements:@"movie" howMany:1];
@@ -282,8 +282,9 @@
         Answer4Correct = YES;
     }
     else if (selection == 5) {
-        // find two movies that actually share the same star
-        NSMutableArray *movieArr = [db randomElements:@"movie" howMany:2];
+        NSString *specialStar = [db starMoreThanOneMovie];
+        // NSLog(specialStar);
+        NSMutableArray *movieArr = [db twoMoviesWithOneStar:specialStar];
         QuestionText.text = [NSString stringWithFormat:@"Which star appears in both movies %@ and %@?",
                              [movieArr objectAtIndex:0], [movieArr objectAtIndex:1]];
         NSMutableArray *wrongs = [db randomElements:@"star" howMany:3];

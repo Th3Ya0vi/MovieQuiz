@@ -583,6 +583,74 @@ static DBEngine *_database;
     return nil;
 }
 
+-(NSMutableArray *)twoMoviesWithOneStar:(NSString *)starName {
+    NSString *fname = [[starName componentsSeparatedByString:@" "] objectAtIndex:0];
+    NSString *lname = [[starName componentsSeparatedByString:@" "] objectAtIndex:1];
+    NSString *query = [NSString stringWithFormat:@"select distinct title\
+                       from movies join stars join stars_in_movies\
+                       where stars.first_name = '%@' and stars.last_name = '%@'\
+                       and stars.id = stars_in_movies.star_id\
+                       and movies.id = stars_in_movies.movie_id limit 2", fname, lname];    
+    sqlite3_stmt *statement;
+    NSMutableArray *ret = [[NSMutableArray alloc] init];
+    
+    int count = 0;
+    if (sqlite3_prepare_v2(_database, [query UTF8String], -1, &statement, nil)
+        == SQLITE_OK) {
+        while (sqlite3_step(statement) == SQLITE_ROW) {
+            char *title = (char *) sqlite3_column_text(statement, 0);
+            NSString *titleS = [[NSString alloc] initWithUTF8String:title];
+            [ret addObject:titleS];
+            count += 1;
+            if (count == 2) {
+                return ret;
+            }
+        }
+    }
+    return ret;
+}
+
+-(NSString *)starMoreThanOneMovie {
+    NSString *query = @"select distinct stars.first_name, stars.last_name\
+                    from stars join stars_in_movies join movies\
+                    where stars.id = stars_in_movies.star_id and movies.id = stars_in_movies.movie_id\
+                    group by movies.title having count(*) > 1 order by random() limit 1";
+    sqlite3_stmt *statement;
+    if (sqlite3_prepare_v2(_database, [query UTF8String], -1, &statement, nil)
+        == SQLITE_OK) {
+        while (sqlite3_step(statement) == SQLITE_ROW) {
+            char *fnamec = (char *) sqlite3_column_text(statement, 0);
+            char *lnamec = (char *) sqlite3_column_text(statement, 1);
+            NSString *fname = [[NSString alloc] initWithUTF8String:fnamec];
+            NSString *lname = [[NSString alloc] initWithUTF8String:lnamec];
+            NSString *name = [NSString stringWithFormat:@"%@ %@", fname, lname];
+            return name;
+        }
+    }
+    return nil;
+}
+
+- (NSMutableArray *)twoMoviesSameYear {
+    NSString *query = @"select distinct movies.title, m2.title\
+        from movies join movies as m2 on movies.id <> m2.id\
+        and movies.year = m2.year order by RANDOM() limit 1";
+    sqlite3_stmt *statement;
+    if (sqlite3_prepare_v2(_database, [query UTF8String], -1, &statement, nil)
+        == SQLITE_OK) {
+        while (sqlite3_step(statement) == SQLITE_ROW) {
+            char *title1 = (char *) sqlite3_column_text(statement, 0);
+            char *title2 = (char *) sqlite3_column_text(statement, 1);
+            NSString *title1Str = [[NSString alloc] initWithUTF8String:title1];
+            NSString *title2Str = [[NSString alloc] initWithUTF8String:title2];
+            NSMutableArray *package = [[NSMutableArray alloc]init];
+            [package addObject:title1Str];
+            [package addObject:title2Str];
+            return package;
+        }
+    }
+    return nil;
+}
+
 // Input a year and a star, output the director.
 - (NSString *)answerEight:(NSString *)star year:(NSString *)year {
     NSArray *aS = [star componentsSeparatedByString:@" "];
