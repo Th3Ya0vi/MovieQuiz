@@ -83,6 +83,18 @@ static DBEngine *_database;
             }
         }
     }
+    else if ([type isEqualToString:@"year"]) {
+        query = [NSString stringWithFormat:@"SELECT DISTINCT year\
+                 FROM movies ORDER BY RANDOM() LIMIT %@", strnum];
+        if (sqlite3_prepare_v2(_database, [query UTF8String], -1, &statement, nil)
+            == SQLITE_OK) {
+            while (sqlite3_step(statement) == SQLITE_ROW) {
+                int year = sqlite3_column_int(statement, 0);
+                NSString *retYear = [[NSString alloc] initWithFormat:@"%d", year];
+                [retElements addObject:retYear];
+            }
+        }
+    }
     return retElements;
 }
 
