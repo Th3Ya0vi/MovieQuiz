@@ -207,7 +207,7 @@
     Answer3Correct = NO;
     Answer4Correct = NO;
     
-    int selection = 5;//arc4random() % 8;
+    int selection = arc4random() % 8;
     
     if (selection == 0) {
         NSMutableArray *randomTitleArr = [db randomElements:@"movie" howMany:1];
@@ -252,19 +252,20 @@
         Answer3Correct = YES;
     }
     else if (selection == 3) {
-        // find two stars that actually appear in the same movie
-        NSMutableArray *starArr = [db randomElements:@"star" howMany:2];
+        NSString *tarMovie = [db movieMoreThanOneStar];
+        NSMutableArray *starArr = [db starsFromMovie:tarMovie];
+        //NSMutableArray *starArr = [db randomElements:@"star" howMany:2];
         QuestionText.text = [NSString stringWithFormat:@"In which movie the stars %@ and %@ appear together?",
                              [starArr objectAtIndex:0], [starArr objectAtIndex:1]];
         
         NSMutableArray *wrongs = [db randomElements:@"movie" howMany:3];
-        NSString *rightAnswer = [db answerFour:[starArr objectAtIndex:0]
-                                    secondStar:[starArr objectAtIndex:1]];
+        //NSString *rightAnswer = [db answerFour:[starArr objectAtIndex:0]
+        //                            secondStar:[starArr objectAtIndex:1]];
         
         [Answer1 setTitle:[wrongs objectAtIndex:0] forState:UIControlStateNormal];
         [Answer2 setTitle:[wrongs objectAtIndex:1] forState:UIControlStateNormal];
         [Answer3 setTitle:[wrongs objectAtIndex:2] forState:UIControlStateNormal];
-        [Answer4 setTitle:rightAnswer forState:UIControlStateNormal];
+        [Answer4 setTitle:tarMovie forState:UIControlStateNormal];
         Answer4Correct = YES;
     }
     else if (selection == 4) {
@@ -388,18 +389,20 @@
         Answer3Correct = YES;
     }
     else if (selection == 3) {
-        NSMutableArray *starArr = [db randomElements:@"star" howMany:2];
+        NSString *tarMovie = [db movieMoreThanOneStar];
+        NSMutableArray *starArr = [db starsFromMovie:tarMovie];
+        //NSMutableArray *starArr = [db randomElements:@"star" howMany:2];
         QuestionText.text = [NSString stringWithFormat:@"In which movie the stars %@ and %@ appear together?",
                              [starArr objectAtIndex:0], [starArr objectAtIndex:1]];
         
         NSMutableArray *wrongs = [db randomElements:@"movie" howMany:3];
-        NSString *rightAnswer = [db answerFour:[starArr objectAtIndex:0]
-                                    secondStar:[starArr objectAtIndex:1]];
+        //NSString *rightAnswer = [db answerFour:[starArr objectAtIndex:0]
+        //                            secondStar:[starArr objectAtIndex:1]];
         
         [Answer1 setTitle:[wrongs objectAtIndex:0] forState:UIControlStateNormal];
         [Answer2 setTitle:[wrongs objectAtIndex:1] forState:UIControlStateNormal];
         [Answer3 setTitle:[wrongs objectAtIndex:2] forState:UIControlStateNormal];
-        [Answer4 setTitle:rightAnswer forState:UIControlStateNormal];
+        [Answer4 setTitle:tarMovie forState:UIControlStateNormal];
         Answer4Correct = YES;
     }
     else if (selection == 4) {
@@ -417,7 +420,9 @@
         Answer4Correct = YES;
     }
     else if (selection == 5) {
-        NSMutableArray *movieArr = [db randomElements:@"movie" howMany:2];
+        NSString *specialStar = [db starMoreThanOneMovie];
+        // NSLog(specialStar);
+        NSMutableArray *movieArr = [db twoMoviesWithOneStar:specialStar];
         QuestionText.text = [NSString stringWithFormat:@"Which star appears in both movies %@ and %@?",
                              [movieArr objectAtIndex:0], [movieArr objectAtIndex:1]];
         NSMutableArray *wrongs = [db randomElements:@"star" howMany:3];
@@ -444,8 +449,9 @@
         Answer4Correct = YES;
     }
     else if (selection == 7) {
-        NSMutableArray *curStar = [[db randomElements:@"star" howMany:1] objectAtIndex:0];
-        NSString *curYear = [[db randomElements:@"year" howMany:1] objectAtIndex:0];
+        NSMutableArray *yearName = [db getLinkedStarAndMovie];
+        NSString *curYear = [yearName objectAtIndex:0];
+        NSString *curStar = [yearName objectAtIndex:1];
         QuestionText.text = [NSString stringWithFormat:@"Who directed the star %@ in year %@?", curStar, curYear];
         NSMutableArray *wrongs = [db randomElements:@"director" howMany:3];
         NSString *rightAnswer = [db answerEight:curStar year:curYear];

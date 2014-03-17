@@ -45,6 +45,8 @@
 - (NSMutableArray *)twoMoviesSameYear;
 - (NSMutableArray *)twoMoviesWithOneStar:(NSString *)starName;
 - (NSString *)starMoreThanOneMovie;
+- (NSMutableArray *)starsFromMovie:(NSString *)movie;
+- (NSString *)movieMoreThanOneStar;
 
 @end
 

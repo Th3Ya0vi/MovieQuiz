@@ -630,6 +630,42 @@ static DBEngine *_database;
     return nil;
 }
 
+-(NSMutableArray *)starsFromMovie:(NSString *)movie {
+    NSString *query = [NSString stringWithFormat:@"select first_name, last_name from stars\
+                       join movies join stars_in_movies where stars.id = stars_in_movies.star_id\
+                       and movies.id = stars_in_movies.movie_id and movies.title = '%@' order by random() limit 2", movie];
+    sqlite3_stmt *statement;
+    NSMutableArray *ret = [[NSMutableArray alloc]init];
+    if (sqlite3_prepare_v2(_database, [query UTF8String], -1, &statement, nil)
+        == SQLITE_OK) {
+        while (sqlite3_step(statement) == SQLITE_ROW) {
+            char *fnamec = (char *) sqlite3_column_text(statement, 0);
+            char *lnamec = (char *) sqlite3_column_text(statement, 1);
+            NSString *fname = [[NSString alloc] initWithUTF8String:fnamec];
+            NSString *lname = [[NSString alloc] initWithUTF8String:lnamec];
+            NSString *name = [NSString stringWithFormat:@"%@ %@", fname, lname];
+            [ret addObject:name];
+        }
+    }
+    return ret;
+}
+
+-(NSString *)movieMoreThanOneStar {
+    NSString *query = @"select title from movies join stars join stars_in_movies\
+            where stars.id = stars_in_movies.star_id and movies.id = stars_in_movies.movie_id\
+            group by stars.first_name having count(*) > 1 order by random() limit 1";
+    sqlite3_stmt *statement;
+    if (sqlite3_prepare_v2(_database, [query UTF8String], -1, &statement, nil)
+        == SQLITE_OK) {
+        while (sqlite3_step(statement) == SQLITE_ROW) {
+            char *title = (char *) sqlite3_column_text(statement, 0);
+            NSString *titleStr = [[NSString alloc] initWithUTF8String:title];
+            return titleStr;
+        }
+    }
+    return nil;
+}
+
 - (NSMutableArray *)twoMoviesSameYear {
     NSString *query = @"select distinct movies.title, m2.title\
         from movies join movies as m2 on movies.id <> m2.id\
