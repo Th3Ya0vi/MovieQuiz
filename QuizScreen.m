@@ -129,33 +129,41 @@
 {
     DBEngine *db = [DBEngine database];
     // res1 should be Tim Burton
+    // options: directors
     NSString *res1 = [db titleToDirector:@"Tim Burton" secondD:@"Taylor Hackford" thirdD:@"Tony Baik"
                                  fourthD:@"Lucas Ou-Yang" title:@"Sleepy Hollow"];
     
     // res2 should be 2005
+    // options: years
     NSString *res2 = [db titleToYear:@"Star Wars: Episode III - Revenge of theSith"
                               firstD:@"1700" secondD:@"2005" thirdD:@"2000" fourthD:@"1995"];
     
     // res3 should be Tony Baik
+    // options: Actors
     NSString *res3 = [db starNotInMovie:@"Russell Crowe" secondS:@"Jennifer Connelly"
                                  thirdS:@"Ed Harris" fourthS:@"Tony Baik" movie:@"A Beautiful Mind"];
     
     // res4 should be All Over Me
+    // options: movies (which one did these two appear in together)
     NSString *res4 = [db sharedMovie:@"Tara Subkoff" secondStar:@"Samuel Jackson"];
     
     // res5 should be AlexSichel
+    // options: directors (directed the star)
     NSString *res5 = [db directedTheStar:@"Tara Subkoff" d1:@"AlexSichel" d2:@"Tony Baik"
                                       d3:@"George Lucas" d4:@"Robin Williams"];
     
     // res6 should be Nicole Kidman
+    // options: actors (stared in both movies)
     NSString *res6 = [db starBothMovies:@"Moulin Rouge" movie2:@"The Others" star1:@"Kate Beckinsale"
                                   star2:@"Nicole Kidman" star3:@"Hayden Christensen" star4:@"Leonardo DiCaprio"];
     
     // res7 should be Lucas Ou-Yang
+    // options: actors (not in the same movie together)
     NSString *res7 = [db notInSameMovie:@"Nicole Kidman" s1:@"Tom Cruise" s2:@"Renee Zellweger"
                                      s3:@"Christopher Walken" s4:@"Lucas Ou-Yang"];
     
     // res8 should be AlexSichel
+    // options: directors (of a specified star and year)
     NSString *res8 = [db directorOfStar:@"Steven Spielberg" d2:@"Ron Howard" d3:@"Bill Forsyth"
                                      d4:@"Bill Forsyth" star:@"Samuel Jackson" year:@"1997"];
     
@@ -171,12 +179,13 @@
           \ndirectorOfStar TEST: %@",
           res1, res2, res3, res4, res5, res6, res7, res8);
     
+    /*
     NSArray *movies = [DBEngine database].movieDBObjects;
     for (MovieDBObjects *movie in movies) {
-        //NSLog(@"%d: %@ %d %@ %@ %@", movie.uniqueId, movie.title, movie.year,\
-        //      movie.director, movie.banner_url, movie.trailer_url);
+        NSLog(@"%d: %@ %d %@ %@ %@", movie.uniqueId, movie.title, movie.year,\
+              movie.director, movie.banner_url, movie.trailer_url);
     }
-    
+    */
 }
 
 - (void)viewDidLoad

@@ -36,6 +36,56 @@ static DBEngine *_database;
     sqlite3_close(_database);
 }
 
+// Helper methods for the below main question methods
+
+// type refers to what are we retrieiving star names, movie titles, or director names?
+- (NSMutableArray *)randomElements:(NSString *)type howMany:(int)num {
+    sqlite3_stmt *statement;
+    NSString *query = nil;
+    NSString *strnum = [[NSString alloc] initWithFormat:@"%d", num];
+    NSMutableArray *retElements = [[NSMutableArray alloc]init];
+    if ([type isEqualToString:@"star"]) {
+        query = [NSString stringWithFormat:@"SELECT DISTINCT first_name, last_name\
+                                            FROM stars ORDER BY RANDOM() LIMIT %@", strnum];
+        if (sqlite3_prepare_v2(_database, [query UTF8String], -1, &statement, nil)
+            == SQLITE_OK) {
+            while (sqlite3_step(statement) == SQLITE_ROW) {
+                char *fnameChars = (char *) sqlite3_column_text(statement, 0);
+                char *lnameChars = (char *) sqlite3_column_text(statement, 1);
+                NSString *fname = [[NSString alloc] initWithUTF8String:fnameChars];
+                NSString *lname = [[NSString alloc] initWithUTF8String:lnameChars];
+                NSString *name = [NSString stringWithFormat:@"%@ %@", fname, lname];
+                [retElements addObject:name];
+            }
+        }
+    }
+    else if ([type isEqualToString:@"director"]) {
+        query = [NSString stringWithFormat:@"SELECT DISTINCT director\
+                                            FROM movies ORDER BY RANDOM() LIMIT %@", strnum];
+        if (sqlite3_prepare_v2(_database, [query UTF8String], -1, &statement, nil)
+            == SQLITE_OK) {
+            while (sqlite3_step(statement) == SQLITE_ROW) {
+                char *nameChars = (char *) sqlite3_column_text(statement, 0);
+                NSString *name = [[NSString alloc] initWithUTF8String:nameChars];
+                [retElements addObject:name];
+            }
+        }
+    }
+    else if ([type isEqualToString:@"movie"]) {
+        query = [NSString stringWithFormat:@"SELECT DISTINCT title\
+                                            FROM movies ORDER BY RANDOM() LIMIT %@", strnum];
+        if (sqlite3_prepare_v2(_database, [query UTF8String], -1, &statement, nil)
+            == SQLITE_OK) {
+            while (sqlite3_step(statement) == SQLITE_ROW) {
+                char *titleChars = (char *) sqlite3_column_text(statement, 0);
+                NSString *title = [[NSString alloc] initWithUTF8String:titleChars];
+                [retElements addObject:title];
+            }
+        }
+    }
+    return retElements;
+}
+
 /*
     Who directed the movie X?
     When was the movie X released?
