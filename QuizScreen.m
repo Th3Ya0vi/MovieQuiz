@@ -58,14 +58,16 @@
     ScoreNumber++;
     Score.text = [NSString stringWithFormat:@"%i", ScoreNumber];
     Result.hidden = NO;
-    Result.image = [UIImage imageNamed:@"correct.png"];
+    Result.textColor = [UIColor greenColor];
+    Result.text = [NSString stringWithFormat:@"Correct!"];
     [self loadViewAgain];
 }
 
 -(void)WrongAnswer{
     WrongNumber++;
     Result.hidden = NO;
-    Result.image = [UIImage imageNamed:@"wrong.png"];
+    Result.textColor = [UIColor redColor];
+    Result.text = [NSString stringWithFormat:@"Wrong!"];
     [self loadViewAgain];
 }
 
@@ -184,6 +186,7 @@
     if(GameInProgress == NO)
     {
         ScoreNumber = 0;
+        WrongNumber = 0;
         dblElapsedSeconds=10; //Declare this in header
         GameInProgress = YES;
     }

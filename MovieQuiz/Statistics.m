@@ -60,6 +60,7 @@
         TotalCorrectLabel.text = [NSString stringWithFormat:@"%li", (long)[preferences integerForKey:CorrectKey]];
         TotalWrongLabel.text = [NSString stringWithFormat:@"%li", (long)[preferences integerForKey:WrongKey]];
         QuizTakenLabel.text = [NSString stringWithFormat:@"%li", (long)[preferences integerForKey:QuizKey]];
+        TimeSpentLabel.text = [NSString stringWithFormat:@"%0.2f s", 0.00];
     }
 
     
@@ -80,6 +81,8 @@
     CorrectLabel.text = [NSString stringWithFormat:@"%i", quizScreen.ScoreNumber];
     WrongLabel.text = [NSString stringWithFormat:@"%i", quizScreen.WrongNumber];
     
+    int totalAttempts = 0;
+    
     
     //for overall scores. use NSUserDefault
     NSUserDefaults* preferences = [NSUserDefaults standardUserDefaults];
@@ -99,6 +102,7 @@
         }
         else{
             TotalCorrectLabel.text = [NSString stringWithFormat:@"%li", (long)[preferences integerForKey:CorrectKey]];
+            totalAttempts += [preferences integerForKey:CorrectKey];
         }
 
     }
@@ -115,6 +119,7 @@
         }
         else{
             TotalCorrectLabel.text = [NSString stringWithFormat:@"%li", (long)[preferences integerForKey:CorrectKey]];
+            totalAttempts += [preferences integerForKey:CorrectKey];
         }
     }
     
@@ -133,6 +138,7 @@
         }
         else{
             TotalWrongLabel.text = [NSString stringWithFormat:@"%li", (long)[preferences integerForKey:WrongKey]];
+            totalAttempts += [preferences integerForKey:WrongKey];
         }
         
     }
@@ -149,11 +155,17 @@
         }
         else{
             TotalWrongLabel.text = [NSString stringWithFormat:@"%li", (long)[preferences integerForKey:WrongKey]];
+            totalAttempts += [preferences integerForKey:WrongKey];
         }
     }
     NSString* QuizKey = @"quizNumber";
     //This won't ever be null since it will be set beforehand.
     QuizTakenLabel.text = [NSString stringWithFormat:@"%li", (long)[preferences integerForKey:QuizKey]];
+    
+    //calculate Average time it takes per question overall.
+    //180 seconds * number of quizzes divided by number of total attempts.
+    TimeSpentLabel.text = [NSString stringWithFormat:@"%0.2f s", (180.0 * (long)[preferences integerForKey:QuizKey])/totalAttempts];
+    
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 }

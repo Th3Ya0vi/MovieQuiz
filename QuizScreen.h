@@ -28,7 +28,7 @@ BOOL GameInProgress;
     IBOutlet UIButton *Answer4;
     IBOutlet UILabel *Score;
     IBOutlet UILabel *TimeLeft;
-    IBOutlet UIImageView *Result;
+    IBOutlet UILabel *Result;
 }
 
 -(void)RightAnswer;

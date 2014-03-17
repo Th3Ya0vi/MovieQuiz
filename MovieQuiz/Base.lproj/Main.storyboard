@@ -41,6 +41,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="194" y="123"/>
         </scene>
         <!--Quiz Screen-->
         <scene sceneID="EDY-Fn-5WC">
@@ -134,10 +135,13 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ggp-Ek-Mui">
-                                <rect key="frame" x="0.0" y="47" width="320" height="157"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UqX-nH-wsv">
+                                <rect key="frame" x="15" y="65" width="290" height="106"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
+                                <fontDescription key="fontDescription" name="STHeitiSC-Light" family="Heiti SC" pointSize="40"/>
+                                <color key="textColor" red="1" green="0.0" blue="0.047118742970000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.99163020540000002" blue="0.9266589449" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
@@ -147,7 +151,7 @@
                         <outlet property="Answer3" destination="N6t-EB-Sg8" id="Ggy-WB-pKN"/>
                         <outlet property="Answer4" destination="WEX-Ag-U1e" id="WJH-Ez-gHi"/>
                         <outlet property="QuestionText" destination="cNH-ox-Tii" id="bpo-dM-jI3"/>
-                        <outlet property="Result" destination="Ggp-Ek-Mui" id="IdJ-Jd-Zde"/>
+                        <outlet property="Result" destination="UqX-nH-wsv" id="Isb-Q6-jjs"/>
                         <outlet property="Score" destination="OLS-Gl-PKM" id="Ek3-ng-1Ul"/>
                         <outlet property="TimeLeft" destination="aZr-nC-6J7" id="Ye7-Ms-MTV"/>
                     </connections>
@@ -368,6 +372,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="hEc-fx-Rnj"/>
+        <segue reference="15A-Jh-bQ8"/>
     </inferredMetricsTieBreakers>
 </document>
