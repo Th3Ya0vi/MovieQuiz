@@ -15,6 +15,7 @@
 
 + (DBEngine*)database;
 - (NSArray *)movieDBObjects;
+- (NSMutableArray *)randomElements:(NSString *)type howMany:(int)num;
 - (NSString *)titleToDirector:(NSString *)d1 secondD:(NSString *)d2 thirdD:(NSString *)d3
                       fourthD:(NSString *)d4 title:(NSString *)title;
 - (NSString *)titleToYear:(NSString *)title firstD:(NSString *)d1 secondD:(NSString *)d2
@@ -30,5 +31,15 @@
                           s3:(NSString *)s3 s4:(NSString *)s4;
 - (NSString *)directorOfStar:(NSString *)d1 d2:(NSString *)d2 d3:(NSString *)d3
                           d4:(NSString *)d4 star:(NSString *)star year:(NSString *)year;
+
+- (NSString *)answerOne:(NSString *)title;
+- (NSString *)answerTwo:(NSString *)title;
+- (NSString *)answerThree:(NSString *)title;
+- (NSString *)answerFour:(NSString *)s1 secondStar:(NSString *)s2;
+- (NSString *)answerFive:(NSString *)star;
+- (NSString *)answerSix:(NSString *)m1Title movie2:(NSString *)m2Title;
+- (NSString *)answerSeven:(NSString *)inStar;
+- (NSString *)answerEight:(NSString *)star year:(NSString *)year;
+
 @end
 
