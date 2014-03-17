@@ -192,7 +192,7 @@
     {
         ScoreNumber = 0;
         WrongNumber = 0;
-        dblElapsedSeconds=10;
+        dblElapsedSeconds=180;
         GameInProgress = YES;
     }
     Result.hidden = YES;
