@@ -37,8 +37,7 @@ static DBEngine *_database;
 }
 
 // Helper methods for the below main question methods
-
-// type refers to what are we retrieiving star names, movie titles, or director names?
+// Type refers to what are we retrieiving star names, movie titles, or director names?
 - (NSMutableArray *)randomElements:(NSString *)type howMany:(int)num {
     sqlite3_stmt *statement;
     NSString *query = nil;
@@ -95,19 +94,9 @@ static DBEngine *_database;
             }
         }
     }
+    NSLog(@"RET RANDOM: %@", retElements);
     return retElements;
 }
-
-/*
-    Who directed the movie X?
-    When was the movie X released?
-    Which star (was/was not) in the movie X?
-    In which movie the stars X and Y appear together?
-    Who directed/did not direct the star X?
-    Which star appears in both movies X and Y?
-    Which star did not appear in the same movie with the star X?
-    Who directed the star X in year Y?
-*/
 
 // Input movie title and output director.
 - (NSString *)answerOne:(NSString *)title {

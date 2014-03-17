@@ -247,8 +247,8 @@
         
         [Answer1 setTitle:[wrongs objectAtIndex:0] forState:UIControlStateNormal];
         [Answer2 setTitle:rightAnswer forState:UIControlStateNormal];
-        [Answer3 setTitle:[wrongs objectAtIndex:0] forState:UIControlStateNormal];
-        [Answer4 setTitle:[wrongs objectAtIndex:0] forState:UIControlStateNormal];
+        [Answer3 setTitle:[wrongs objectAtIndex:1] forState:UIControlStateNormal];
+        [Answer4 setTitle:[wrongs objectAtIndex:2] forState:UIControlStateNormal];
         Answer3Correct = YES;
     }
     else if (selection == 3) {
@@ -384,8 +384,8 @@
         
         [Answer1 setTitle:[wrongs objectAtIndex:0] forState:UIControlStateNormal];
         [Answer2 setTitle:rightAnswer forState:UIControlStateNormal];
-        [Answer3 setTitle:[wrongs objectAtIndex:0] forState:UIControlStateNormal];
-        [Answer4 setTitle:[wrongs objectAtIndex:0] forState:UIControlStateNormal];
+        [Answer3 setTitle:[wrongs objectAtIndex:1] forState:UIControlStateNormal];
+        [Answer4 setTitle:[wrongs objectAtIndex:2] forState:UIControlStateNormal];
         Answer3Correct = YES;
     }
     else if (selection == 3) {
