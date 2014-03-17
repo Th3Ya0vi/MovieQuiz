@@ -20,31 +20,28 @@
 -(void)updateElapsedTime
 {
     dblElapsedSeconds -= 1;
-    //Time is up.
+    // Time is up.
     if(dblElapsedSeconds < 1)
     {
-        //Time is up / reset
+        // Time is up / reset
         GameInProgress = NO;
         //free up elapsed time / reset it
         tmrElapsedTime.invalidate;
         
-        //+1 for # of quizzes taken
+        // +1 for # of quizzes taken
         NSUserDefaults* preferences = [NSUserDefaults standardUserDefaults];
         NSString* QuizKey = @"quizNumber";
         
-        if([preferences objectForKey:QuizKey] == nil)
-        {
-            //do nothing. doesnt exist already.
+        if([preferences objectForKey:QuizKey] == nil) {
             [preferences setInteger:1 forKey:QuizKey];
         }
-        else
-        {
+        else {
             const NSInteger NewQuizNum = [preferences integerForKey:QuizKey] + 1;
             [preferences setInteger:NewQuizNum forKey:QuizKey];
         }
         
         TimeUp *timeUp = [[UIStoryboard storyboardWithName:@"Main" bundle:NULL] instantiateViewControllerWithIdentifier:@"TimeUp"];
-        //logic for exiting to gameover screen
+        // logic for exiting to gameover screen
         [self presentViewController:timeUp animated:YES completion:NULL];
     }
     int hours,minutes, lseconds;
@@ -80,7 +77,7 @@
     }
 }
 -(IBAction)Answer2:(id)sender{
-    if(Answer1Correct == YES){
+    if(Answer2Correct == YES){
         [self RightAnswer];
     }
     else{
@@ -89,7 +86,7 @@
 }
 
 -(IBAction)Answer3:(id)sender{
-    if(Answer1Correct == YES){
+    if(Answer3Correct == YES){
         [self RightAnswer];
     }
     else{
@@ -98,7 +95,7 @@
 }
 
 -(IBAction)Answer4:(id)sender{
-    if(Answer1Correct == YES){
+    if(Answer4Correct == YES){
         [self RightAnswer];
     }
     else{
@@ -125,8 +122,7 @@
     return self;
 }
 
--(void)dbTestSuite
-{
+-(void)dbTestSuite {
     DBEngine *db = [DBEngine database];
     // res1 should be Tim Burton
     // options: directors
@@ -211,7 +207,7 @@
     Answer3Correct = NO;
     Answer4Correct = NO;
     
-    int selection = 1;//arc4random() % 8;
+    int selection = 7;//arc4random() % 8;
     
     if (selection == 0) {
         NSMutableArray *randomTitleArr = [db randomElements:@"movie" howMany:1];
@@ -256,6 +252,7 @@
         Answer3Correct = YES;
     }
     else if (selection == 3) {
+        // find two stars that actually appear in the same movie
         NSMutableArray *starArr = [db randomElements:@"star" howMany:2];
         QuestionText.text = [NSString stringWithFormat:@"In which movie the stars %@ and %@ appear together?",
                              [starArr objectAtIndex:0], [starArr objectAtIndex:1]];
@@ -285,6 +282,7 @@
         Answer4Correct = YES;
     }
     else if (selection == 5) {
+        // find two movies that actually share the same star
         NSMutableArray *movieArr = [db randomElements:@"movie" howMany:2];
         QuestionText.text = [NSString stringWithFormat:@"Which star appears in both movies %@ and %@?",
                              [movieArr objectAtIndex:0], [movieArr objectAtIndex:1]];
@@ -312,8 +310,9 @@
         Answer4Correct = YES;
     }
     else if (selection == 7) {
-        NSMutableArray *curStar = [[db randomElements:@"star" howMany:1] objectAtIndex:0];
-        NSString *curYear = [[db randomElements:@"year" howMany:1] objectAtIndex:0];
+        NSMutableArray *yearName = [db getLinkedStarAndMovie];
+        NSString *curYear = [yearName objectAtIndex:0];
+        NSString *curStar = [yearName objectAtIndex:1];
         QuestionText.text = [NSString stringWithFormat:@"Who directed the star %@ in year %@?", curStar, curYear];
         NSMutableArray *wrongs = [db randomElements:@"director" howMany:3];
         NSString *rightAnswer = [db answerEight:curStar year:curYear];

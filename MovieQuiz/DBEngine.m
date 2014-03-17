@@ -559,6 +559,30 @@ static DBEngine *_database;
     // bool is4 = [fellowStars containsObject:s2];
 }
 
+- (NSMutableArray *)getLinkedStarAndMovie {
+    NSString *query = @"select distinct movies.year, first_name, last_name\
+        from stars join movies join stars_in_movies where stars.id = stars_in_movies.star_id\
+        and movies.id = stars_in_movies.movie_id order by RANDOM() limit 1;";
+    sqlite3_stmt *statement;
+    if (sqlite3_prepare_v2(_database, [query UTF8String], -1, &statement, nil)
+        == SQLITE_OK) {
+        while (sqlite3_step(statement) == SQLITE_ROW) {
+            int year = sqlite3_column_int(statement, 0);
+            char *fnamec = (char *) sqlite3_column_text(statement, 1);
+            char *lnamec = (char *) sqlite3_column_text(statement, 2);
+            NSString *yearStr = [[NSString alloc] initWithFormat:@"%d", year];
+            NSString *fname = [[NSString alloc] initWithUTF8String:fnamec];
+            NSString *lname = [[NSString alloc] initWithUTF8String:lnamec];
+            NSString *name = [NSString stringWithFormat:@"%@ %@", fname, lname];
+            NSMutableArray *package = [[NSMutableArray alloc] init];
+            [package addObject:yearStr];
+            [package addObject:name];
+            return package;
+        }
+    }
+    return nil;
+}
+
 // Input a year and a star, output the director.
 - (NSString *)answerEight:(NSString *)star year:(NSString *)year {
     NSArray *aS = [star componentsSeparatedByString:@" "];
@@ -567,7 +591,7 @@ static DBEngine *_database;
     
     NSString *query = [NSString stringWithFormat:@"select distinct movies.director from stars join movies join stars_in_movies\
                        where movies.id = stars_in_movies.movie_id and stars.id = stars_in_movies.star_id\
-                       and stars.first_name = '%@' and stars.last_name = '%@' and movies.year = %@;", fname, lname, year];
+                       and stars.first_name = '%@' and stars.last_name = '%@' and movies.year = %@", fname, lname, year];
     
     sqlite3_stmt *statement;
     if (sqlite3_prepare_v2(_database, [query UTF8String], -1, &statement, nil)
