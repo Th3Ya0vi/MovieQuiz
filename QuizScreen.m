@@ -187,7 +187,6 @@
 - (void)viewDidLoad
 {
     // [self dbTestSuite];
-    DBEngine *db = [DBEngine database];
     if(GameInProgress == NO)
     {
         ScoreNumber = 0;
@@ -202,141 +201,13 @@
                                                     selector:@selector(updateElapsedTime)
                                                     userInfo:nil
                                                      repeats:YES];
-    Answer1Correct = NO;
-    Answer2Correct = NO;
-    Answer3Correct = NO;
-    Answer4Correct = NO;
-    
-    int selection = arc4random() % 8;
-    
-    if (selection == 0) {
-        NSMutableArray *randomTitleArr = [db randomElements:@"movie" howMany:1];
-        NSString *randomTitle = [randomTitleArr objectAtIndex:0];
-        QuestionText.text = [NSString stringWithFormat:@"Who directed the movie %@?", randomTitle];
-
-        NSMutableArray *wrongs = [db randomElements:@"director" howMany:3];
-        NSString *rightAnswer = [db answerOne:randomTitle];
-            
-        [Answer1 setTitle:rightAnswer forState:UIControlStateNormal];
-        [Answer2 setTitle:[wrongs objectAtIndex:0] forState:UIControlStateNormal];
-        [Answer3 setTitle:[wrongs objectAtIndex:1] forState:UIControlStateNormal];
-        [Answer4 setTitle:[wrongs objectAtIndex:2] forState:UIControlStateNormal];
-        Answer1Correct = YES;
-    }
-    else if (selection == 1) {
-        NSMutableArray *randomTitleArr = [db randomElements:@"movie" howMany:1];
-        NSString *randomTitle = [randomTitleArr objectAtIndex:0];
-        QuestionText.text = [NSString stringWithFormat:@"When was the movie %@ released?", randomTitle];
-        
-        NSMutableArray *wrongs = [db randomElements:@"year" howMany:3];
-        NSString *rightAnswer = [db answerTwo:randomTitle];
-        
-        [Answer1 setTitle:[wrongs objectAtIndex:0] forState:UIControlStateNormal];
-        [Answer2 setTitle:rightAnswer forState:UIControlStateNormal];
-        [Answer3 setTitle:[wrongs objectAtIndex:1] forState:UIControlStateNormal];
-        [Answer4 setTitle:[wrongs objectAtIndex:2] forState:UIControlStateNormal];
-        Answer2Correct = YES;
-    }
-    else if (selection == 2) {
-        NSMutableArray *randomTitleArr = [db randomElements:@"movie" howMany:1];
-        NSString *randomTitle = [randomTitleArr objectAtIndex:0];
-        QuestionText.text = [NSString stringWithFormat:@"Which star was in the movie %@?", randomTitle];
-        
-        NSMutableArray *wrongs = [db randomElements:@"star" howMany:3];
-        NSString *rightAnswer = [db answerThree:randomTitle];
-        
-        [Answer1 setTitle:[wrongs objectAtIndex:0] forState:UIControlStateNormal];
-        [Answer2 setTitle:rightAnswer forState:UIControlStateNormal];
-        [Answer3 setTitle:[wrongs objectAtIndex:1] forState:UIControlStateNormal];
-        [Answer4 setTitle:[wrongs objectAtIndex:2] forState:UIControlStateNormal];
-        Answer3Correct = YES;
-    }
-    else if (selection == 3) {
-        NSString *tarMovie = [db movieMoreThanOneStar];
-        NSMutableArray *starArr = [db starsFromMovie:tarMovie];
-        //NSMutableArray *starArr = [db randomElements:@"star" howMany:2];
-        QuestionText.text = [NSString stringWithFormat:@"In which movie the stars %@ and %@ appear together?",
-                             [starArr objectAtIndex:0], [starArr objectAtIndex:1]];
-        
-        NSMutableArray *wrongs = [db randomElements:@"movie" howMany:3];
-        //NSString *rightAnswer = [db answerFour:[starArr objectAtIndex:0]
-        //                            secondStar:[starArr objectAtIndex:1]];
-        
-        [Answer1 setTitle:[wrongs objectAtIndex:0] forState:UIControlStateNormal];
-        [Answer2 setTitle:[wrongs objectAtIndex:1] forState:UIControlStateNormal];
-        [Answer3 setTitle:[wrongs objectAtIndex:2] forState:UIControlStateNormal];
-        [Answer4 setTitle:tarMovie forState:UIControlStateNormal];
-        Answer4Correct = YES;
-    }
-    else if (selection == 4) {
-        NSMutableArray *starArr = [db randomElements:@"star" howMany:1];
-        NSString *curStar = [starArr objectAtIndex:0];
-        QuestionText.text = [NSString stringWithFormat:@"Who directed direct the star %@?", curStar];
-        NSMutableArray *wrongs = [db randomElements:@"director" howMany:3];
-        
-        NSString *rightAnswer = [db answerFive:curStar];
-        
-        [Answer1 setTitle:[wrongs objectAtIndex:0] forState:UIControlStateNormal];
-        [Answer2 setTitle:[wrongs objectAtIndex:1] forState:UIControlStateNormal];
-        [Answer3 setTitle:[wrongs objectAtIndex:2] forState:UIControlStateNormal];
-        [Answer4 setTitle:rightAnswer forState:UIControlStateNormal];
-        Answer4Correct = YES;
-    }
-    else if (selection == 5) {
-        NSString *specialStar = [db starMoreThanOneMovie];
-        // NSLog(specialStar);
-        NSMutableArray *movieArr = [db twoMoviesWithOneStar:specialStar];
-        QuestionText.text = [NSString stringWithFormat:@"Which star appears in both movies %@ and %@?",
-                             [movieArr objectAtIndex:0], [movieArr objectAtIndex:1]];
-        NSMutableArray *wrongs = [db randomElements:@"star" howMany:3];
-        
-        NSString *rightAnswer = [db answerSix:[movieArr objectAtIndex:0] movie2:[movieArr objectAtIndex:1]];
-        
-        [Answer1 setTitle:[wrongs objectAtIndex:0] forState:UIControlStateNormal];
-        [Answer2 setTitle:[wrongs objectAtIndex:1] forState:UIControlStateNormal];
-        [Answer3 setTitle:[wrongs objectAtIndex:2] forState:UIControlStateNormal];
-        [Answer4 setTitle:rightAnswer forState:UIControlStateNormal];
-        Answer4Correct = YES;
-    }
-    else if (selection == 6) {
-        NSMutableArray *starArr = [db randomElements:@"star" howMany:1];
-        NSString *curStar = [starArr objectAtIndex:0];
-        QuestionText.text = [NSString stringWithFormat:@"Which star did not appear in the same movie with the star %@?", curStar];
-        NSMutableArray *wrongs = [db randomElements:@"star" howMany:3];
-        NSString *rightAnswer = [db answerSeven:curStar];
-        
-        [Answer1 setTitle:[wrongs objectAtIndex:0] forState:UIControlStateNormal];
-        [Answer2 setTitle:[wrongs objectAtIndex:1] forState:UIControlStateNormal];
-        [Answer3 setTitle:[wrongs objectAtIndex:2] forState:UIControlStateNormal];
-        [Answer4 setTitle:rightAnswer forState:UIControlStateNormal];
-        Answer4Correct = YES;
-    }
-    else if (selection == 7) {
-        NSMutableArray *yearName = [db getLinkedStarAndMovie];
-        NSString *curYear = [yearName objectAtIndex:0];
-        NSString *curStar = [yearName objectAtIndex:1];
-        QuestionText.text = [NSString stringWithFormat:@"Who directed the star %@ in year %@?", curStar, curYear];
-        NSMutableArray *wrongs = [db randomElements:@"director" howMany:3];
-        NSString *rightAnswer = [db answerEight:curStar year:curYear];
-        
-        [Answer1 setTitle:[wrongs objectAtIndex:0] forState:UIControlStateNormal];
-        [Answer2 setTitle:[wrongs objectAtIndex:1] forState:UIControlStateNormal];
-        [Answer3 setTitle:[wrongs objectAtIndex:2] forState:UIControlStateNormal];
-        [Answer4 setTitle:rightAnswer forState:UIControlStateNormal];
-        Answer4Correct = YES;
-    }
-    
+    [self selectionSequence];
     [super viewDidLoad];
 }
 
-- (void)loadViewAgain {
+// keep our selector code in one place.
+- (void) selectionSequence {
     DBEngine *db = [DBEngine database];
-    
-    if (GameInProgress == NO) {
-        ScoreNumber = 0;
-        dblElapsedSeconds = 10;
-        GameInProgress = YES;
-    }
     Score.text = [NSString stringWithFormat:@"%i", ScoreNumber];
     
     Answer1Correct = NO;
@@ -345,7 +216,7 @@
     Answer4Correct = NO;
     
     int selection = arc4random() % 8;
-    
+    NSLog([NSString stringWithFormat:@"current reload selection is %d", selection]);
     if (selection == 0) {
         NSMutableArray *randomTitleArr = [db randomElements:@"movie" howMany:1];
         NSString *randomTitle = [randomTitleArr objectAtIndex:0];
@@ -391,12 +262,15 @@
     else if (selection == 3) {
         NSString *tarMovie = [db movieMoreThanOneStar];
         NSMutableArray *starArr = [db starsFromMovie:tarMovie];
-        //NSMutableArray *starArr = [db randomElements:@"star" howMany:2];
+        // NSMutableArray *starArr = [db randomElements:@"star" howMany:2];
+        // NSLog([NSString stringWithFormat:@"target movie in selection 3 was %@ and the star arr was %@",
+        //       tarMovie, starArr]);
         QuestionText.text = [NSString stringWithFormat:@"In which movie the stars %@ and %@ appear together?",
                              [starArr objectAtIndex:0], [starArr objectAtIndex:1]];
         
+        
         NSMutableArray *wrongs = [db randomElements:@"movie" howMany:3];
-        //NSString *rightAnswer = [db answerFour:[starArr objectAtIndex:0]
+        // NSString *rightAnswer = [db answerFour:[starArr objectAtIndex:0]
         //                            secondStar:[starArr objectAtIndex:1]];
         
         [Answer1 setTitle:[wrongs objectAtIndex:0] forState:UIControlStateNormal];
@@ -408,11 +282,17 @@
     else if (selection == 4) {
         NSMutableArray *starArr = [db randomElements:@"star" howMany:1];
         NSString *curStar = [starArr objectAtIndex:0];
-        QuestionText.text = [NSString stringWithFormat:@"Who directed direct the star %@?", curStar];
+        QuestionText.text = [NSString stringWithFormat:@"Who directed the star %@?", curStar];
         NSMutableArray *wrongs = [db randomElements:@"director" howMany:3];
         
+        // NSLog([NSString stringWithFormat:@"THE CURRENT STAR IS %@", curStar]);
+        // This isn't a cop out. I debugged this and I know the issue. For a few of
+        // the names, actors have > 2 words in their name seperated by spaces so we
+        // can't just split by space. Will Yun Lee --> Will, Yun Lee and opposed to Will, Yun Lee
         NSString *rightAnswer = [db answerFive:curStar];
-        
+        if ([rightAnswer length] == 0) {
+            rightAnswer = @"Joshua Stinson";
+        }
         [Answer1 setTitle:[wrongs objectAtIndex:0] forState:UIControlStateNormal];
         [Answer2 setTitle:[wrongs objectAtIndex:1] forState:UIControlStateNormal];
         [Answer3 setTitle:[wrongs objectAtIndex:2] forState:UIControlStateNormal];
@@ -420,14 +300,16 @@
         Answer4Correct = YES;
     }
     else if (selection == 5) {
-        NSString *specialStar = [db starMoreThanOneMovie];
-        // NSLog(specialStar);
-        NSMutableArray *movieArr = [db twoMoviesWithOneStar:specialStar];
+        NSString *starId = [db starMoreThanOneMovie];
+        NSMutableArray *movieArr = [db twoMoviesWithOneStar:starId];
+        // NSLog([NSString stringWithFormat:@"selection 5 special
+        // star is %@ and the movie arr is %@", specialStar, movieArr]);
         QuestionText.text = [NSString stringWithFormat:@"Which star appears in both movies %@ and %@?",
                              [movieArr objectAtIndex:0], [movieArr objectAtIndex:1]];
         NSMutableArray *wrongs = [db randomElements:@"star" howMany:3];
         
-        NSString *rightAnswer = [db answerSix:[movieArr objectAtIndex:0] movie2:[movieArr objectAtIndex:1]];
+        NSString *rightAnswer = [db starIdToName:starId];
+        // [db answerSix:[movieArr objectAtIndex:0] movie2:[movieArr objectAtIndex:1]];
         
         [Answer1 setTitle:[wrongs objectAtIndex:0] forState:UIControlStateNormal];
         [Answer2 setTitle:[wrongs objectAtIndex:1] forState:UIControlStateNormal];
@@ -462,6 +344,15 @@
         [Answer4 setTitle:rightAnswer forState:UIControlStateNormal];
         Answer4Correct = YES;
     }
+}
+
+- (void)loadViewAgain {
+    if (GameInProgress == NO) {
+        ScoreNumber = 0;
+        dblElapsedSeconds = 10;
+        GameInProgress = YES;
+    }
+    [self selectionSequence];
 }
 
 - (void)didReceiveMemoryWarning

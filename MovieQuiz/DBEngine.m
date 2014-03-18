@@ -94,7 +94,7 @@ static DBEngine *_database;
             }
         }
     }
-    NSLog(@"RET RANDOM: %@", retElements);
+    // NSLog(@"RET RANDOM: %@", retElements);
     return retElements;
 }
 
@@ -110,7 +110,7 @@ static DBEngine *_database;
             return director;
         }
     }
-    return nil;
+    return [[self randomElements:@"director" howMany:1] objectAtIndex:0];
 }
 
 // Input 4 directors and a title, return winning director.
@@ -155,7 +155,7 @@ static DBEngine *_database;
             return retYear;
         }
     }
-    return nil;
+    return [[self randomElements:@"year" howMany:1] objectAtIndex:0];
 }
 
 // Given a movie title and four release dates return winning date.
@@ -195,7 +195,7 @@ static DBEngine *_database;
             return s;
         }
     }
-    return nil;
+    return [[self randomElements:@"star" howMany:1] objectAtIndex:0];
 }
 
 // Given 4 stars, find which one is not in a given movie.
@@ -315,7 +315,7 @@ static DBEngine *_database;
             return dirName;
         }
     }
-    return nil;
+    return [[self randomElements:@"director" howMany:1] objectAtIndex:0];;
 }
 
 // Given 4 directors and a star, who directed that star?
@@ -356,6 +356,23 @@ static DBEngine *_database;
     }
     // bool is4 = [dirs containsObject:d4];
     return d4;
+}
+
+- (NSString *)starIdToName:(NSString *)starId {
+    NSString *query = [NSString stringWithFormat:@"select first_name, last_name from stars where id = %@", starId];
+    sqlite3_stmt *statement;
+    if (sqlite3_prepare_v2(_database, [query UTF8String], -1, &statement, nil)
+        == SQLITE_OK) {
+        while (sqlite3_step(statement) == SQLITE_ROW) {
+            char *fname = (char *) sqlite3_column_text(statement, 0);
+            char *lname = (char *) sqlite3_column_text(statement, 1);
+            NSString *fnames = [[NSString alloc] initWithUTF8String:fname];
+            NSString *lnames = [[NSString alloc] initWithUTF8String:lname];
+            NSString *name = [NSString stringWithFormat:@"%@ %@", fnames, lnames];
+            return name;
+        }
+    }
+    return [[self randomElements:@"star" howMany:1] objectAtIndex:0];;
 }
 
 // Input two movie titles, output a star that appears in both.
@@ -405,7 +422,7 @@ static DBEngine *_database;
             }
         }
     }
-    return nil;
+    return [[self randomElements:@"star" howMany:1] objectAtIndex:0];
 }
 
 // Given 4 stars and 2 movies, find which one appears in both.
@@ -501,7 +518,7 @@ static DBEngine *_database;
             }
         }
     }
-    return nil;
+    return [[self randomElements:@"star" howMany:1] objectAtIndex:0];;
 }
 
 // Given 4 stars and a star, find which one were not ever in the same movie
@@ -572,14 +589,21 @@ static DBEngine *_database;
     return nil;
 }
 
--(NSMutableArray *)twoMoviesWithOneStar:(NSString *)starName {
-    NSString *fname = [[starName componentsSeparatedByString:@" "] objectAtIndex:0];
-    NSString *lname = [[starName componentsSeparatedByString:@" "] objectAtIndex:1];
+-(NSMutableArray *)twoMoviesWithOneStar:(NSString *)starId {
+    // NSString *fname = [[starName componentsSeparatedByString:@" "] objectAtIndex:0];
+    // NSString *lname = [[starName componentsSeparatedByString:@" "] objectAtIndex:1];
+    /*
     NSString *query = [NSString stringWithFormat:@"select distinct title\
                        from movies join stars join stars_in_movies\
-                       where stars.first_name = '%@' and stars.last_name = '%@'\
+                       where stars.id = '%@' and stars.last_name = '%@'\
                        and stars.id = stars_in_movies.star_id\
                        and movies.id = stars_in_movies.movie_id limit 2", fname, lname];    
+     */
+    NSString *query = [NSString stringWithFormat:@"select distinct title\
+                       from movies join stars join stars_in_movies\
+                       where stars.id = '%@'\
+                       and stars.id = stars_in_movies.star_id\
+                       and movies.id = stars_in_movies.movie_id limit 2", starId];
     sqlite3_stmt *statement;
     NSMutableArray *ret = [[NSMutableArray alloc] init];
     
@@ -596,24 +620,34 @@ static DBEngine *_database;
             }
         }
     }
-    return ret;
+    return nil;
 }
 
 -(NSString *)starMoreThanOneMovie {
+    /*
     NSString *query = @"select distinct stars.first_name, stars.last_name\
                     from stars join stars_in_movies join movies\
                     where stars.id = stars_in_movies.star_id and movies.id = stars_in_movies.movie_id\
                     group by movies.title having count(*) > 1 order by random() limit 1";
+     */
+    NSString *query = @"select distinct stars.id \
+                        from stars join stars_in_movies where stars.id = stars_in_movies.star_id\
+                        group by stars_in_movies.star_id having count(stars_in_movies.star_id) > 1\
+                        order by RANDOM() limit 1;";
+    
     sqlite3_stmt *statement;
     if (sqlite3_prepare_v2(_database, [query UTF8String], -1, &statement, nil)
         == SQLITE_OK) {
         while (sqlite3_step(statement) == SQLITE_ROW) {
-            char *fnamec = (char *) sqlite3_column_text(statement, 0);
-            char *lnamec = (char *) sqlite3_column_text(statement, 1);
-            NSString *fname = [[NSString alloc] initWithUTF8String:fnamec];
-            NSString *lname = [[NSString alloc] initWithUTF8String:lnamec];
-            NSString *name = [NSString stringWithFormat:@"%@ %@", fname, lname];
-            return name;
+            //char *fnamec = (char *) sqlite3_column_text(statement, 0);
+            //char *lnamec = (char *) sqlite3_column_text(statement, 1);
+            int theId = sqlite3_column_int(statement, 0);
+            NSString *strId = [NSString stringWithFormat:@"%d", theId];
+            return strId;
+            //NSString *fname = [[NSString alloc] initWithUTF8String:fnamec];
+            //NSString *lname = [[NSString alloc] initWithUTF8String:lnamec];
+            //NSString *name = [NSString stringWithFormat:@"%@ %@", fname, lname];
+            //return name;
         }
     }
     return nil;
@@ -636,7 +670,7 @@ static DBEngine *_database;
             [ret addObject:name];
         }
     }
-    return ret;
+    return [self randomElements:@"star" howMany:2];
 }
 
 -(NSString *)movieMoreThanOneStar {
@@ -652,7 +686,7 @@ static DBEngine *_database;
             return titleStr;
         }
     }
-    return nil;
+    return [[self randomElements:@"movie" howMany:1] objectAtIndex:0];;
 }
 
 - (NSMutableArray *)twoMoviesSameYear {
@@ -695,7 +729,7 @@ static DBEngine *_database;
             return director;
         }
     }
-    return nil;
+    return [[self randomElements:@"director" howMany:1] objectAtIndex:0];
 }
 
 // Given 4 directors and a star and a year (get the list of movies), who directed him.

@@ -43,10 +43,11 @@
 
 - (NSMutableArray *)getLinkedStarAndMovie;
 - (NSMutableArray *)twoMoviesSameYear;
-- (NSMutableArray *)twoMoviesWithOneStar:(NSString *)starName;
+- (NSMutableArray *)twoMoviesWithOneStar:(NSString *)starId;
 - (NSString *)starMoreThanOneMovie;
 - (NSMutableArray *)starsFromMovie:(NSString *)movie;
 - (NSString *)movieMoreThanOneStar;
+- (NSString *)starIdToName:(NSString *)starId;
 
 @end
 
